@@ -1,0 +1,649 @@
+/* ==========================================================================
+   Karinderya — game landing page
+   External stylesheet for COMP016 Lab Activity 2.
+   Brand colors live in :root and are reused on type, chrome, and controls.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Self-hosted faces
+   Lilita One = painted karinderya signboard. Noto Sans = spoken copy + Filipino.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Lilita One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/lilita-one-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Lilita One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/lilita-one-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/noto-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/noto-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* --------------------------------------------------------------------------
+   Brand tokens — primary colors for UI, accents, and surfaces
+   -------------------------------------------------------------------------- */
+:root {
+  --wood: #241209;
+  --wood-deep: #160904;
+  --cream: #fff4e4;
+  --cream-soft: #f0d4b0;
+  --lime: #d7f04c;
+  --lime-deep: #b6d12a;
+  --flame: #ff8c1a;
+  --flame-hot: #ffb347;
+  --tile: rgba(10, 4, 2, 0.9);
+  --tile-border: rgba(255, 214, 160, 0.14);
+  --focus: #ffe08a;
+  --shadow: 0 18px 40px rgba(8, 3, 1, 0.45);
+  --radius-tile: 1.35rem;
+  --radius-shot: 1.1rem;
+  --page-pad: clamp(1.15rem, 4vw, 3.5rem);
+  --display: "Lilita One", "Trebuchet MS", sans-serif;
+  --body: "Noto Sans", "Segoe UI", sans-serif;
+}
+
+/* Universal reset — required selector type: * */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: var(--flame) var(--wood-deep);
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--wood-deep);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--flame);
+  border-radius: 999px;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--body);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--cream);
+  background-color: var(--wood-deep);
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: var(--flame);
+  color: var(--wood-deep);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Grouped headings — required selector type: h1, h2 */
+h1,
+h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  text-wrap: balance;
+}
+
+/* --------------------------------------------------------------------------
+   Shared section blocks
+   -------------------------------------------------------------------------- */
+.site-header,
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 20;
+  padding: 0.65rem 1rem;
+  background: var(--flame);
+  color: var(--wood-deep);
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation — Flexbox alignment for the header bar
+   -------------------------------------------------------------------------- */
+.site-header {
+  padding: 1.35rem var(--page-pad) 0;
+  flex-shrink: 0;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.wordmark {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.nav-list a {
+  font-weight: 600;
+  font-size: 1.02rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.wordmark:hover,
+.nav-list a:hover {
+  color: var(--lime);
+}
+
+/* --------------------------------------------------------------------------
+   Hero page — full viewport; food spread lives only here
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: 0 0 3.5rem;
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 40%;
+  transform: scale(1.08);
+  animation: table-breathe 28s ease-in-out infinite;
+}
+
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(22, 8, 3, 0.72) 0%, rgba(22, 8, 3, 0.38) 42%, rgba(22, 8, 3, 0.28) 100%),
+    linear-gradient(180deg, rgba(16, 6, 2, 0.18) 0%, rgba(16, 6, 2, 0.42) 100%);
+}
+
+@keyframes table-breathe {
+  0%,
+  100% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.14) translate3d(-1.2%, -0.8%, 0);
+  }
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 38rem;
+  padding: 0 var(--page-pad);
+  flex: 1 1 auto;
+}
+
+/* Nested selector — required type: div p */
+div p {
+  color: var(--cream);
+}
+
+.hero-copy .tagline {
+  margin-top: 1.1rem;
+  margin-bottom: 0.85rem;
+  font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.25;
+  max-width: 22ch;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.55);
+}
+
+.hero-copy p {
+  max-width: 42ch;
+  color: var(--cream-soft);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+}
+
+#game-title {
+  font-size: clamp(3.4rem, 8.2vw, 5.85rem);
+  text-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+}
+
+/* ID selector — required type: #play */
+#play {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.6rem;
+  padding: 0.72rem 1.55rem 0.72rem 1.15rem;
+  background: var(--flame);
+  color: #2a1204;
+  font-family: var(--display);
+  font-size: 1.45rem;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  box-shadow:
+    0 10px 24px rgba(255, 120, 0, 0.28),
+    0 2px 0 rgba(120, 40, 0, 0.35);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.play-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: currentColor;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.play:hover,
+.play:focus {
+  background: var(--flame-hot);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 4px rgba(255, 176, 70, 0.28),
+    0 16px 32px rgba(255, 120, 0, 0.38);
+}
+
+.play:hover .play-icon,
+.play:focus .play-icon {
+  transform: translateX(3px);
+}
+
+.play:focus {
+  outline-color: var(--cream);
+}
+
+/* --------------------------------------------------------------------------
+   Features — CSS Grid for the three mechanic tiles
+   -------------------------------------------------------------------------- */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.35rem;
+  height: fit-content;
+  padding: 4.5rem var(--page-pad);
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(90, 42, 16, 0.35), transparent 55%),
+    var(--wood);
+}
+
+.feature {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 16.5rem;
+  padding: 1.5rem 1.2rem 1.5rem 44%;
+  overflow: hidden;
+  background: linear-gradient(180deg, #2a160d 0%, #160904 100%);
+  border: 1px solid var(--tile-border);
+  border-radius: var(--radius-tile);
+  box-shadow: var(--shadow);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.feature:hover {
+  transform: translateY(-6px);
+  border-color: rgba(215, 240, 76, 0.35);
+}
+
+.feature-art {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 46%;
+  max-height: 88%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature:hover .feature-art {
+  transform: translateY(-50%) scale(1.06);
+}
+
+.feature-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.feature h2 {
+  color: var(--lime);
+  font-size: clamp(1.05rem, 1.6vw, 1.55rem);
+  letter-spacing: 0.03em;
+  line-height: 1.02;
+}
+
+.feature p {
+  margin-top: 0.55rem;
+  color: var(--cream-soft);
+  font-size: 0.98rem;
+  max-width: 28ch;
+}
+
+/* --------------------------------------------------------------------------
+   Gallery — CSS Grid for in-game plates
+   -------------------------------------------------------------------------- */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 4.5rem var(--page-pad);
+  background: var(--wood-deep);
+}
+
+.gallery-intro {
+  text-align: center;
+  margin-bottom: 1.6rem;
+}
+
+.gallery-intro h2 {
+  color: var(--lime);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: 0.08em;
+}
+
+.gallery-intro p {
+  margin-top: 0.55rem;
+  color: var(--cream-soft);
+  font-size: 1.02rem;
+}
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.shot {
+  margin: 0;
+}
+
+.shot img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  border-radius: var(--radius-shot);
+  box-shadow: var(--shadow);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shot:hover img,
+.shot:focus-within img {
+  transform: scale(1.035);
+}
+
+.shot figcaption {
+  margin-top: 0.7rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--cream);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+}
+
+/* --------------------------------------------------------------------------
+   Footer — legal / icons / words, then a giant mark cropped to 60%
+   -------------------------------------------------------------------------- */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  background: var(--wood);
+  color: var(--cream);
+  padding: 2.75rem var(--page-pad) 0;
+  overflow: hidden;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 0;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.15rem;
+  font-size: 0.875rem;
+}
+
+.footer-legal a {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-legal a:hover,
+.footer-legal a:focus {
+  color: var(--cream-soft);
+}
+
+.footer-words {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.7rem 0.85rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.25rem 0.85rem;
+  list-style: none;
+}
+
+.footer-nav a {
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus {
+  color: var(--cream-soft);
+}
+
+/* 60% of the letter height shows; the full word stays on one line */
+.footer-mark {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 0.6em;
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 11vw, 14rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-align: center;
+  color: var(--cream);
+  user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   Tablet — max-width 1024px
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .features,
+  .shots {
+    gap: 1rem;
+  }
+
+  .feature h2 {
+    font-size: 1.28rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile — max-width 680px
+   -------------------------------------------------------------------------- */
+@media (max-width: 680px) {
+  .site-nav {
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    padding-bottom: 2.4rem;
+  }
+
+  .hero-copy {
+    padding: 0 var(--page-pad);
+  }
+
+  .gallery {
+    min-height: 0;
+  }
+
+  .features,
+  .gallery {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero-copy .tagline {
+    max-width: none;
+  }
+
+  .features,
+  .shots {
+    grid-template-columns: 1fr;
+  }
+
+  .feature {
+    min-height: 14rem;
+    padding: 1.3rem 1.2rem 1.3rem 46%;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-words,
+  .footer-nav {
+    justify-content: flex-start;
+  }
+
+  .footer-nav ul {
+    justify-content: flex-start;
+  }
+
+  .footer-mark {
+    font-size: clamp(2.6rem, 14vw, 6rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-media img,
+  .feature,
+  .feature-art,
+  .play,
+  .play-icon,
+  .shot img {
+    animation: none;
+    transition: none;
+  }
+}
